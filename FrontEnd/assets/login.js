@@ -31,8 +31,6 @@ submit.addEventListener("click",async(e)=> {
             localStorage.setItem("token", token);
             localStorage.setItem("userId",responseData.userId)
             console.log(responseData)
-
-
             window.location.href = "index.html";
         })
         .catch(function (error) {

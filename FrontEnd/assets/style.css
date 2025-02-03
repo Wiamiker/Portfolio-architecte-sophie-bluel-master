@@ -98,27 +98,51 @@ table {
 
 .modal_close{
 	position: absolute;
-	top: 8px;
-	right: 8px;
+	top: 30px;
+	right: 30px;
+	font-size: 20px;
 	cursor: pointer;
-	transition: 0.3s all ease-in-out; 
+	
 }
 
-.modal_close .fa-regular {
-	width: 20px;
-	height: 20px;
-}
 
-.modal_close:hover {
-    transform: rotate(360deg);
-}
+
 
 .modal_header_title {
 	text-align: center;
 	font-size: 30px;
 	font-family: "Work Sans";
+	margin: 30px;
 }
 
+.modal_header_title_ajout{
+	text-align: center;
+	font-size: 30px;
+	font-family: "Work Sans";
+	margin: auto;
+	margin-bottom: 20px;
+}
+
+.modal_header_ajout{
+	display: flex;
+	
+	align-items: center;
+}
+
+.modal_body{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 40px;
+}
+
+.fa-arrow-left{
+	position: absolute;
+	top: 30px;
+	left: 30px;
+	font-size: 20px;
+}
 .modal_button {
 	font-size: 14px;
 	color: white;
@@ -136,7 +160,19 @@ table {
 	background-color: #185C4E;
 }
 
+.btn{
+	width: 50%;
+	border-radius: 30px;
+	color: #306685;
+	background: #CBD6DC;
+	padding: 15px;
+	border: none;
+	margin: 15px 15px;
+}
 
+.fileinput{
+	display: none;
+}
 
 
 /** end reset css**/
@@ -304,6 +340,48 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+}
+
+#nomimage{
+	width: 410px;
+	height: 51px;
+	box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.1);
+	border: none;
+}
+
+#selectcategories{
+	width: 420px;
+	height: 51px;
+	box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.1);
+	border: none;
+}
+
+label{
+	margin-bottom: 10px;
+	font-size: 14px;
+	font-family: "Work Sans";
+}
+
+.belform{
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	margin-top: 30px;
+}
+
+.formatting{
+	display: flex;
+	flex-direction: column;
+	background-color: #E8F1F6;
+	padding: 50px;
+	width: 70%;
+	align-items: center;
+	margin-top: 30px;
+}
+
+.fa-image{
+	font-size: 80px;
+	color: #B9C5CC;
 }
 
 footer nav ul {

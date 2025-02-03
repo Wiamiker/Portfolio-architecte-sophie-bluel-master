@@ -74,9 +74,9 @@
 </footer>
 
 <div class="overlay">
-<div class="modal modal_gallery" >
+<div class="modal modal_gallery " >
 	<div class="modal_header">
-		<div class="modal_close" onclick="closeModal()"><i class="fa-regular fa-xmark"></i>
+		<div class="modal_close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i>
 		</div>
 		<h2 class="modal_header_title">Galerie photo</h2>
 	</div>
@@ -94,16 +94,29 @@
 
 
 	<div class="modal modal_ajout hiden">
-		<div class="modal_header">
-			<div class="modal_close" onclick="closeModal()"><i class="fa-regular fa-xmark"></i>
+		<div class="modal_header_ajout">
+			<div class="modal_close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i>
 			</div>
-			<h2 class="modal_header_title">Ajout photo</h2>
+			<i class="fa-solid fa-arrow-left" id="return_modal"></i>
+			<h2 class="modal_header_title_ajout">Ajout photo</h2>
 		</div>
 	
 		<div class="modal_body">
-			<input type="file" name="image" id="ajoutimage">
-			<input type="text" name="Nomimage" id="nomimage">
+			<div class="formatting">
+				<i class="fa-regular fa-image"></i>
+				<button  class="btn"  id="ajoutimage"> + Ajouter une photo </button>
+				<input class="fileinput" type="file" id="fileInput" accept="image/*">
+				<p>jpg, png : 4mo max</p>
+				</div>
+			<div class="belform">
+				<label>Titre</label>
+			<input type="text" name="Nomimage" id="nomimage" >
+			</div>
+
+			<div class="belform">
+				<label>Catégories</label>
 			<select name="categories" id="selectcategories"></select>
+			</div>
 			<div class="gallery-modal"></div>
 		</div>
 	
