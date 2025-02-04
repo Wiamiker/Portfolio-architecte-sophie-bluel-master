@@ -81,6 +81,44 @@ fetch('http://localhost:5678/api/categories')
         });
     });
 
+    const ajoutImage = document.getElementById("ajoutimage");
+    const inputFile = document.getElementById('fileInput');
+    const faImage = document.querySelector('.fa-image');
+    const texteImage = document.querySelector('.formatting p'); // Sélection du <p> sans classe
+
+    ajoutImage.addEventListener('click', function(event) {
+        event.preventDefault();
+        inputFile.click();
+
+    })
+
+    inputFile.addEventListener('change', (event) => {
+        const fichier = event.target.files[0];
+
+        if (fichier) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                // Crée une balise <img> pour afficher l'image
+                const imgElement = document.createElement('img');
+                imgElement.src = e.target.result; // Utilise le résultat du FileReader
+                imgElement.style.maxWidth = '100px'; // Limite la taille de l'image (vous pouvez ajuster)
+                imgElement.style.borderRadius = '5px'; // Pour donner un aspect esthétique
+                console.log()
+
+                // Remplace le bouton par l'image
+                const formattingDiv = document.querySelector('.formatting');
+                formattingDiv.replaceChild(imgElement, ajoutImage); // Remplace le bouton par l'image
+                console.log()
+
+                // Masque l'icône et le paragraphe
+                faImage.style.display = 'none';
+                texteImage.style.display = 'none';
+            };
+
+           reader.readAsDataURL(fichier); // Lit le fichier en tant qu'URL de données
+        }
+    });
+
     
 
 // Événement pour ajouter un projet
