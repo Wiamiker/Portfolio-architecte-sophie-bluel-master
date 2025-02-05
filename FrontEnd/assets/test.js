@@ -200,4 +200,52 @@ function getProjects(projects) {
         figure.appendChild(figcaption);
         gallery.appendChild(figure);
         
-    })}
+    })
+
+    // Ajout uniquement dans la modal
+    const modalFigure = document.createElement('figure');
+    const modalImage = document.createElement('img');
+    const modalFigcaption = document.createElement('figcaption');
+
+    modalImage.src = project.imageUrl;
+    modalImage.alt = project.title;
+    modalFigcaption.textContent = project.title;
+
+    const trash = document.createElement('div');
+    trash.classList.add('trash');
+    trash.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
+
+    // Ajouter un gestionnaire d'événements à la poubelle
+    trash.addEventListener('click', function(event) {
+        event.stopPropagation(); // Empêche la propagation de l'événement pour éviter une redirection
+        deleteProject(project.id); // Appel de la fonction de suppression
+    });
+
+    modalFigure.appendChild(modalImage);
+    modalFigure.appendChild(modalFigcaption);
+    modalFigure.appendChild(trash); // Ajouter la poubelle uniquement dans la modal
+    galleryModal.appendChild(modalFigure);
+};
+
+
+// Fonction de suppression d'un projet
+function deleteProject(projectId) {
+    let token = localStorage.getItem("token");
+    fetch(`http://localhost:5678/api/works/${projectId}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erreur lors de la suppression du projet');
+        }
+        // Supprimer le projet de la liste affichée
+        works = works.filter(work => work.id !== projectId); // Mettre à jour la liste des projets
+        //getProjects(works); // Rafraîchir l'affichage
+    })
+    .catch(error => {
+        console.error('Erreur:', error);
+    });
+}
