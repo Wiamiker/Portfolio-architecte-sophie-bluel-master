@@ -146,6 +146,7 @@ validButton.addEventListener('click', function(event) {
         },
         body: formData
     })
+    
     .then(response => {
         if (!response.ok) {
             throw new Error('Erreur lors de l\'ajout du projet');
@@ -186,6 +187,7 @@ function getProjects(projects) {
     gallery.innerHTML = "";
     galleryModal.innerHTML = ""; // Effacer le contenu de la modal avant d'ajouter de nouveaux projets
 
+
     projects.forEach(project => {
         // Portfolio Gallery
         const figure = document.createElement('figure');
@@ -200,7 +202,6 @@ function getProjects(projects) {
         figure.appendChild(figcaption);
         gallery.appendChild(figure);
         
-    })
 
     // Ajout uniquement dans la modal
     const modalFigure = document.createElement('figure');
@@ -215,6 +216,29 @@ function getProjects(projects) {
     trash.classList.add('trash');
     trash.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
 
+     // Événement de suppression au clic sur la poubelle
+     trash.addEventListener('click', function(event) {
+        event.stopPropagation(); // Empêche la propagation de l'événement
+
+        deleteProject(project.id, modalFigure); // Supprimer du serveur et de la modal
+
+        // Supprimer l'image de la modal galerie
+        modalFigure.remove();
+
+        // Supprimer l'image de la galerie d'accueil
+        const homeFigures = document.querySelectorAll('.home-gallery figure');
+        homeFigures.forEach(fig => {
+            const img = fig.querySelector('img');
+            if (img.src === project.imageUrl) {
+                fig.remove(); // Supprime l'élément correspondant
+            }
+        });
+
+         // Supprimer aussi du tableau works pour éviter qu'il soit réaffiché
+         works = works.filter(work => work.imageUrl !== project.imageUrl);
+        });
+
+
     // Ajouter un gestionnaire d'événements à la poubelle
     trash.addEventListener('click', function(event) {
         event.stopPropagation(); // Empêche la propagation de l'événement pour éviter une redirection
@@ -225,7 +249,7 @@ function getProjects(projects) {
     modalFigure.appendChild(modalFigcaption);
     modalFigure.appendChild(trash); // Ajouter la poubelle uniquement dans la modal
     galleryModal.appendChild(modalFigure);
-};
+})};
 
 
 // Fonction de suppression d'un projet
@@ -243,9 +267,32 @@ function deleteProject(projectId) {
         }
         // Supprimer le projet de la liste affichée
         works = works.filter(work => work.id !== projectId); // Mettre à jour la liste des projets
-        //getProjects(works); // Rafraîchir l'affichage
+        getProjects(works); // Rafraîchir l'affichage
     })
     .catch(error => {
         console.error('Erreur:', error);
     });
 }
+
+// Fonction pour mettre à jour l'affichage sur la page d'accueil
+function updateHomeProjects(newProject) {
+    const homeGallery = document.querySelector('.home-gallery'); // Assurez-vous que cette classe existe sur votre page d'accueil
+    const figure = document.createElement('figure');
+    const image = document.createElement('img');
+    const figcaption = document.createElement('figcaption');
+
+    image.src = newProject.imageUrl;
+    image.alt = newProject.title;
+    figcaption.textContent = newProject.title;
+
+    figure.appendChild(image);
+    figure.appendChild(figcaption);
+    homeGallery.appendChild(figure);
+}
+
+const returnModal=document.querySelector("#return_modal");
+
+returnModal.addEventListener('click', function(event) {
+    modalAjout.classList.add("hiden");
+    modalGallery.classList.remove("hiden");
+})
