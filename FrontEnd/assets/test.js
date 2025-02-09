@@ -146,7 +146,6 @@ validButton.addEventListener('click', function(event) {
         },
         body: formData
     })
-    
     .then(response => {
         if (!response.ok) {
             throw new Error('Erreur lors de l\'ajout du projet');
@@ -216,27 +215,7 @@ function getProjects(projects) {
     trash.classList.add('trash');
     trash.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
 
-     // Événement de suppression au clic sur la poubelle
-     trash.addEventListener('click', function(event) {
-        event.stopPropagation(); // Empêche la propagation de l'événement
-
-        deleteProject(project.id, modalFigure); // Supprimer du serveur et de la modal
-
-        // Supprimer l'image de la modal galerie
-        modalFigure.remove();
-
-        // Supprimer l'image de la galerie d'accueil
-        const homeFigures = document.querySelectorAll('.home-gallery figure');
-        homeFigures.forEach(fig => {
-            const img = fig.querySelector('img');
-            if (img.src === project.imageUrl) {
-                fig.remove(); // Supprime l'élément correspondant
-            }
-        });
-
-         // Supprimer aussi du tableau works pour éviter qu'il soit réaffiché
-         works = works.filter(work => work.imageUrl !== project.imageUrl);
-        });
+     
 
 
     // Ajouter un gestionnaire d'événements à la poubelle

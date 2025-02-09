@@ -459,6 +459,12 @@ footer nav ul {
 	font-size: 0.9em;
 }
 
+#error-message{
+	color: red; 
+	display: none;
+	margin-bottom: 20px;
+}
+
 #auth-submit {
 	height: 38px;
 	font-size: 15px;
