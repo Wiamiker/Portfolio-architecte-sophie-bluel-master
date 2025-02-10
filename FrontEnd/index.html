@@ -107,10 +107,13 @@
 				<button  class="btn"  id="ajoutimage"> + Ajouter une photo </button>
 				<input class="fileinput" type="file" id="fileInput" accept="image/*">
 				<p>jpg, png : 4mo max</p>
+				<p id="error-image">Veuillez ajouter une image.</p>
 				</div>
+
 			<div class="belform">
 				<label>Titre</label>
 			<input type="text" name="Nomimage" id="nomimage" >
+				<p id="error-title">Veuillez entrer un titre.</p>
 			</div>
 
 			<div class="belform">
@@ -118,6 +121,7 @@
 			<select name="categories" id="selectcategories"></select>
 			</div>
 			<div class="gallery-modal"></div>
+			<p id="error-category">Veuillez sélectionner une catégorie.</p>
 		</div>
 	
 		<div class="modal_footer">

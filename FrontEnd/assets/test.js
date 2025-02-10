@@ -275,3 +275,68 @@ returnModal.addEventListener('click', function(event) {
     modalAjout.classList.add("hiden");
     modalGallery.classList.remove("hiden");
 })
+
+// Pour griser le bouton valider si le(s) champ(s) est/sont vide(nt)
+
+const inputImage = document.querySelector("#fileInput");
+const inputTitle = document.querySelector("#nomimage");
+const inputCategory = document.querySelector("#selectcategories");
+
+
+const errorImage = document.querySelector("#error-image");
+const errorTitle = document.querySelector("#error-title");
+const errorCategory = document.querySelector("#error-category");
+
+// Vérifier si tous les champs sont remplis
+function checkForm() {
+    if (inputImage.files.length > 0 && inputTitle.value.trim() !== "" && inputCategory.value !== "") {
+        validButton.style.backgroundColor = "#1D6154"; // Couleur activée
+        validButton.disabled = false; // Activer le bouton
+    } else {
+        validButton.style.backgroundColor = "gray"; // Couleur désactivée
+        validButton.disabled = true; // Désactiver le bouton
+    }
+}
+
+// Vérifier les champs en temps réel
+inputImage.addEventListener("change", checkForm);
+inputTitle.addEventListener("input", checkForm);
+inputCategory.addEventListener("change", checkForm);
+
+// Vérifier avant soumission
+validButton.addEventListener("click", function (event) {
+    let valid = true;
+
+    // Vérifier l'image
+    if (inputImage.files.length === 0) {
+        errorImage.style.display = "block";
+        valid = false;
+    } else {
+        errorImage.style.display = "none";
+    }
+
+    // Vérifier le titre
+    if (inputTitle.value.trim() === "") {
+        errorTitle.style.display = "block";
+        valid = false;
+    } else {
+        errorTitle.style.display = "none";
+    }
+
+    // Vérifier la catégorie
+    if (inputCategory.value === "") {
+        errorCategory.style.display = "block";
+        valid = false;
+    } else {
+        errorCategory.style.display = "none";
+    }
+
+    // Si un champ est vide, empêcher l'envoi
+    if (!valid) {
+        event.preventDefault();
+    }
+});
+
+// Désactiver le bouton au chargement de la page
+validButton.style.backgroundColor = "gray";
+validButton.disabled = true;
