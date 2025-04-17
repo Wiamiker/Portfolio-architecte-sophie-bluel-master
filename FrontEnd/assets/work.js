@@ -3,6 +3,7 @@ let btnModifier = document.querySelector(".btn-modifier");
 let addButton = document.querySelector(".addbutton");
 let modalAjout = document.querySelector(".modal_ajout");
 let modalGallery = document.querySelector(".modal_gallery");
+const admin = document.querySelector('.admin');
 
 addButton.addEventListener("click", function(event) {
     modalAjout.classList.remove("hiden");
@@ -17,6 +18,9 @@ if (localStorage.getItem("token")) {
         localStorage.removeItem("token");
         window.location.href = "index.html";
     });
+    const btnAdmin = document.createElement('button');
+    btnAdmin.innerText = "Mode édition";
+    admin.appendChild(btnAdmin);
     masquerCategories();
 } else {
     btnModifier.remove();
@@ -123,6 +127,7 @@ fetch('http://localhost:5678/api/categories')
 
 // Événement pour ajouter un projet
 const validButton = document.querySelector(".valid_button");
+const form = document.getElementById('form');
 
 // Empêcher la redirection lors de l'envoi
 validButton.addEventListener('click', function(event) {
@@ -132,7 +137,7 @@ validButton.addEventListener('click', function(event) {
     const nom = document.querySelector("#nomimage");
     const categories = document.querySelector("#selectcategories");
     
-    const formData = new FormData();
+    const formData = new FormData(form);
     
     formData.append('image', inputImage.files[0]);
     formData.append('title', nom.value);
@@ -155,10 +160,12 @@ validButton.addEventListener('click', function(event) {
     .then(data => {
         works.push(data); // Ajouter le nouveau projet à la liste
         //getProjects(works); // Rafraîchir l'affichage
+        apiWork();
         closeModal(); // Fermer la modal
         
         // Réinitialiser le formulaire après ajout
         document.querySelector(".ajout").reset(); // Réinitialiser le formulaire
+        form.reset();
         
         updateHomeProjects(data); // Mettre à jour l'affichage sur la page d'accueil
     })
@@ -168,7 +175,8 @@ validButton.addEventListener('click', function(event) {
 });
 
 // Récupération des projets
-fetch('http://localhost:5678/api/works')
+const apiWork = async() => {
+    await fetch('http://localhost:5678/api/works')
     .then(response => response.json())
     .then(data => {
         works = data;
@@ -178,6 +186,9 @@ fetch('http://localhost:5678/api/works')
     .catch(error => {
         console.error('Erreur lors de la récupération des données:', error);
     });
+}
+
+apiWork();
 
 // Fonction pour afficher les projets
 function getProjects(projects) {
@@ -220,6 +231,7 @@ function getProjects(projects) {
 
     // Ajouter un gestionnaire d'événements à la poubelle
     trash.addEventListener('click', function(event) {
+        event.preventDefault();
         event.stopPropagation(); // Empêche la propagation de l'événement pour éviter une redirection
         deleteProject(project.id); // Appel de la fonction de suppression
     });

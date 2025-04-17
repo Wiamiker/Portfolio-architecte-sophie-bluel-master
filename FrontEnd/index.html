@@ -15,6 +15,9 @@
 	
 </head>
 <body>
+<div class="admin">
+	<i class="fa-regular fa-pen-to-square"></i>
+</div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
@@ -100,33 +103,34 @@
 			<i class="fa-solid fa-arrow-left" id="return_modal"></i>
 			<h2 class="modal_header_title_ajout">Ajout photo</h2>
 		</div>
-	
-		<div class="modal_body">
-			<div class="formatting">
-				<i class="fa-regular fa-image"></i>
-				<button  class="btn"  id="ajoutimage"> + Ajouter une photo </button>
-				<input class="fileinput" type="file" id="fileInput" accept="image/*">
-				<p>jpg, png : 4mo max</p>
-				<p id="error-image">Veuillez ajouter une image.</p>
+		<form action="#" id="form">
+			<div class="modal_body">
+				<div class="formatting">
+					<i class="fa-regular fa-image"></i>
+					<button  class="btn"  id="ajoutimage"> + Ajouter une photo </button>
+					<input class="fileinput" type="file" id="fileInput" accept="image/*">
+					<p>jpg, png : 4mo max</p>
+					<p id="error-image">Veuillez ajouter une image.</p>
+					</div>
+
+				<div class="belform">
+					<label>Titre</label>
+				<input type="text" name="Nomimage" id="nomimage" >
+					<p id="error-title">Veuillez entrer un titre.</p>
 				</div>
 
-			<div class="belform">
-				<label>Titre</label>
-			<input type="text" name="Nomimage" id="nomimage" >
-				<p id="error-title">Veuillez entrer un titre.</p>
+				<div class="belform">
+					<label>Catégories</label>
+				<select name="categories" id="selectcategories"></select>
+				</div>
+				<div class="gallery-modal"></div>
+				<p id="error-category">Veuillez sélectionner une catégorie.</p>
 			</div>
-
-			<div class="belform">
-				<label>Catégories</label>
-			<select name="categories" id="selectcategories"></select>
+		
+			<div class="modal_footer">
+				<button class="modal_button valid_button" >Valider</button>
 			</div>
-			<div class="gallery-modal"></div>
-			<p id="error-category">Veuillez sélectionner une catégorie.</p>
-		</div>
-	
-		<div class="modal_footer">
-			<button class="modal_button valid_button" >Valider</button>
-		</div>
+		</form>
 	</div>
 	</div>
 

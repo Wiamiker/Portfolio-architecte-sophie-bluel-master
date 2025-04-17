@@ -66,6 +66,31 @@ table {
 	background: #FFFFFF;
 	cursor: pointer;
 }
+
+.admin {
+	background-color: #000000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0px;
+	padding: 0;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 98.7vw;
+}
+
+.admin .fa-regular {
+	color: white;
+}
+
+.admin button {
+	background-color: transparent;
+	border: none;
+	color: white;
+	padding: 15px;
+}
+
 .overlay {
 	position: fixed;
 	top: 0;
@@ -502,6 +527,10 @@ footer nav ul {
 footer {
 	background-color: #f9f9f9;
 	padding: 20px 0;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 98.7vw;
 }
 
 .footer-nav {
