@@ -3,7 +3,6 @@ let btnModifier = document.querySelector(".btn-modifier");
 let addButton = document.querySelector(".addbutton");
 let modalAjout = document.querySelector(".modal_ajout");
 let modalGallery = document.querySelector(".modal_gallery");
-const admin = document.querySelector('.admin');
 
 addButton.addEventListener("click", function(event) {
     modalAjout.classList.remove("hiden");
@@ -11,6 +10,7 @@ addButton.addEventListener("click", function(event) {
 });
 
 if (localStorage.getItem("token")) {
+    // Login/logout
     let login = document.getElementById('login');
     login.innerHTML = "Logout";
     login.classList.add("logout");
@@ -18,8 +18,16 @@ if (localStorage.getItem("token")) {
         localStorage.removeItem("token");
         window.location.href = "index.html";
     });
+    // Barre d'admin
+    const body = document.querySelector('body');
+    const admin = document.createElement('div');
+    const iconEdition = document.createElement('i');
     const btnAdmin = document.createElement('button');
+    admin.classList.add('admin');
+    iconEdition.classList.add('fa-regular', 'fa-pen-to-square');
     btnAdmin.innerText = "Mode édition";
+    body.insertBefore(admin, body.firstChild);
+    admin.appendChild(iconEdition);
     admin.appendChild(btnAdmin);
     masquerCategories();
 } else {
@@ -89,6 +97,7 @@ fetch('http://localhost:5678/api/categories')
     const inputFile = document.getElementById('fileInput');
     const faImage = document.querySelector('.fa-image');
     const texteImage = document.querySelector('.formatting p'); // Sélection du <p> sans classe
+    const previewImage = document.getElementById('previewImage');
 
     ajoutImage.addEventListener('click', function(event) {
         event.preventDefault();
@@ -98,31 +107,28 @@ fetch('http://localhost:5678/api/categories')
 
     inputFile.addEventListener('change', (event) => {
         const fichier = event.target.files[0];
-
+    
         if (fichier) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                // Crée une balise <img> pour afficher l'image
-                const imgElement = document.createElement('img');
-                imgElement.src = e.target.result; // Utilise le résultat du FileReader
-                imgElement.style.maxWidth = '100px'; // Limite la taille de l'image (vous pouvez ajuster)
-                imgElement.style.borderRadius = '5px'; // Pour donner un aspect esthétique
-                console.log()
-
-                // Remplace le bouton par l'image
-                const formattingDiv = document.querySelector('.formatting');
-                formattingDiv.replaceChild(imgElement, ajoutImage); // Remplace le bouton par l'image
-                console.log()
-
-                // Masque l'icône et le paragraphe
+                previewImage.src = e.target.result;
+                previewImage.style.display = 'block';
+                ajoutImage.style.display = 'none';
                 faImage.style.display = 'none';
                 texteImage.style.display = 'none';
             };
-
-           reader.readAsDataURL(fichier); // Lit le fichier en tant qu'URL de données
+    
+            reader.readAsDataURL(fichier);
         }
     });
 
+    function resetFormulaire() {
+        inputFile.value = '';
+        previewImage.style.display = 'none';
+        ajoutImage.style.display = 'inline-block';
+        faImage.style.display = 'inline-block';
+        texteImage.style.display = 'block';
+    }
     
 
 // Événement pour ajouter un projet
@@ -164,7 +170,7 @@ validButton.addEventListener('click', function(event) {
         closeModal(); // Fermer la modal
         
         // Réinitialiser le formulaire après ajout
-        document.querySelector(".ajout").reset(); // Réinitialiser le formulaire
+        resetFormulaire();
         form.reset();
         
         updateHomeProjects(data); // Mettre à jour l'affichage sur la page d'accueil

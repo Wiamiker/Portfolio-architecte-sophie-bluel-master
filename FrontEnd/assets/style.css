@@ -89,6 +89,7 @@ table {
 	border: none;
 	color: white;
 	padding: 15px;
+	cursor: pointer;
 }
 
 .overlay {
