@@ -163,6 +163,13 @@ table {
 	margin-bottom: 40px;
 }
 
+.file-error {
+	color: red;
+	display: none;
+	font-size: 0.9rem;
+	margin-top: 8px;
+  }
+
 .fa-arrow-left{
 	position: absolute;
 	top: 30px;

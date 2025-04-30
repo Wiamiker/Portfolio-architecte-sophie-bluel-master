@@ -76,7 +76,7 @@
 <div class="overlay">
 <div class="modal modal_gallery " >
 	<div class="modal_header">
-		<div class="modal_close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i>
+		<div class="modal_close"><i class="fa-solid fa-xmark"></i>
 		</div>
 		<h2 class="modal_header_title">Galerie photo</h2>
 	</div>
@@ -95,7 +95,7 @@
 
 	<div class="modal modal_ajout hiden">
 		<div class="modal_header_ajout">
-			<div class="modal_close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i>
+			<div class="modal_close"><i class="fa-solid fa-xmark"></i>
 			</div>
 			<i class="fa-solid fa-arrow-left" id="return_modal"></i>
 			<h2 class="modal_header_title_ajout">Ajout photo</h2>
@@ -107,6 +107,7 @@
 					<i class="fa-regular fa-image"></i>
 					<button  class="btn"  id="ajoutimage"> + Ajouter une photo </button>
 					<input class="fileinput" type="file" id="fileInput" accept="image/*">
+					<p id="fileError" class="file-error"></p>
 					<p>jpg, png : 4mo max</p>
 					<p id="error-image">Veuillez ajouter une image.</p>
 				</div>

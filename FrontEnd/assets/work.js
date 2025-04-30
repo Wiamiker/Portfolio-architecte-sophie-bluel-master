@@ -34,6 +34,7 @@ if (localStorage.getItem("token")) {
     btnModifier.remove();
 }
 
+
 // Cacher les catégories
 function masquerCategories() {
     var categories = document.querySelector(".filter-links");
@@ -53,6 +54,18 @@ function closeModal() {
     document.querySelector('.overlay').style.display = 'none';
     document.querySelector('.modal').classList.remove('modal--open');
 }
+
+// Ouverture de la modal via le bouton modifier
+const boutonModifier = document.querySelector(".btn-modifier");
+if (boutonModifier) {
+    boutonModifier.addEventListener("click", openModal);
+}
+
+// Fermeture des modales
+const boutonsFermer = document.querySelectorAll(".modal_close");
+boutonsFermer.forEach(btn => {
+    btn.addEventListener("click", closeModal);
+});
 
 // Récupération des catégories
 fetch('http://localhost:5678/api/categories')
@@ -109,6 +122,21 @@ fetch('http://localhost:5678/api/categories')
         const fichier = event.target.files[0];
     
         if (fichier) {
+            
+            if (fichier.size > 4 * 1024 * 1024) {
+                fileError.textContent = "L'image dépasse la taille maximale autorisée de 4 Mo.";
+                fileError.style.display = 'block';
+                inputFile.value = ''; // Réinitialiser le champ
+                previewImage.style.display = 'none';
+                ajoutImage.style.display = 'inline-block';
+                faImage.style.display = 'inline-block';
+                texteImage.style.display = 'block';
+                return; // <-- Ne pas continuer si image trop grosse
+            }
+    
+            fileError.textContent = '';
+            fileError.style.display = 'none';
+    
             const reader = new FileReader();
             reader.onload = (e) => {
                 previewImage.src = e.target.result;
@@ -143,11 +171,13 @@ validButton.addEventListener('click', function(event) {
     const nom = document.querySelector("#nomimage");
     const categories = document.querySelector("#selectcategories");
     
+
     const formData = new FormData(form);
     
     formData.append('image', inputImage.files[0]);
     formData.append('title', nom.value);
     formData.append('category', categories.value);
+
 
     let token = localStorage.getItem("token");
     fetch('http://localhost:5678/api/works', {
@@ -326,6 +356,7 @@ validButton.addEventListener("click", function (event) {
     let valid = true;
 
     // Vérifier l'image
+    
     if (inputImage.files.length === 0) {
         errorImage.style.display = "block";
         valid = false;
