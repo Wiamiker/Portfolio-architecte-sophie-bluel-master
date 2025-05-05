@@ -124,6 +124,7 @@ fetch('http://localhost:5678/api/categories')
         if (fichier) {
             
             if (fichier.size > 4 * 1024 * 1024) {
+                const fileError = document.querySelector("#error-image");
                 fileError.textContent = "L'image dépasse la taille maximale autorisée de 4 Mo.";
                 fileError.style.display = 'block';
                 inputFile.value = ''; // Réinitialiser le champ
@@ -195,7 +196,7 @@ validButton.addEventListener('click', function(event) {
     })
     .then(data => {
         works.push(data); // Ajouter le nouveau projet à la liste
-        //getProjects(works); // Rafraîchir l'affichage
+        getProjects(works); // Rafraîchir l'affichage
         apiWork();
         closeModal(); // Fermer la modal
         
